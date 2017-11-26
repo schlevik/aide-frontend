@@ -175,17 +175,22 @@ angular.module('Lambda3WebApp')
 				$scope.buildRule();
 				$scope.loading = true;
 				const events = _($scope.newEvents).map((event) => event.repr()).value();
-				aide.postRule({"routine": $scope.routine, "events": events})
+				aide.postRule({"routine": $scope.routine, "event_listeners": events})
 					.$promise
 					.then(
 						function (result) {
-							let msg = "Save a rule with the name " + $scope.name + ": Your Result: ";
-							msg += result.success === true ? "Successful!" : "Unsuccessful!";
-							$scope.message = msg;
-
-							$scope.error = false;
-							$scope.getRules();
-							$scope.reset();
+							$scope.message = "Save a rule with the name '" + $scope.name + "'\n: You were: ";
+							if(!result.success) {
+								$scope.error = result.msg;
+									$scope.message += "Unsuccessful!"
+									$scope.loading = false;
+							} else {
+								$scope.error = false;
+								$scope.message += "Successful!";
+								$scope.getRules();
+								$scope.reset();
+							}
+							
 						},
 						function (error) {
 							$scope.error = error;
@@ -197,7 +202,7 @@ angular.module('Lambda3WebApp')
 			function loadRule(rule) {
 				$scope.reset();
 				$scope.name = rule.name;
-				$scope.description = rule.description;
+				$scope.description =rule.description;
 				$scope.context.load(rule);
 			}
 

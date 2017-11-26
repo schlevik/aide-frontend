@@ -11,18 +11,7 @@ angular.module('Lambda3WebApp')
 	.controller('ProgrammingCreateEventModalCtrl', ['$scope', '$uibModalInstance', 'lodash', 'event',
 		function ($scope, $uibModalInstance, _, event) {
 
-			function enbrace() {
-				if (!($scope.event.sparqlWhere.startsWith("{") && $scope.event.sparqlWhere.endsWith("}"))) {
-					$scope.event.sparqlWhere = "{ " + $scope.event.sparqlWhere + " }";
-				}
-			}
-
 			$scope.ok = function () {
-				try {
-					enbrace();
-				} catch (error) {
-
-				}
 				$uibModalInstance.close($scope.event);
 			};
 			$scope.cancel = function () {
@@ -86,10 +75,33 @@ angular.module('Lambda3WebApp')
 					stepUnit: "s",
 					sparqlWhere: "",
 					new: true,
+					whereRows: [],
 					possibleParams: [],
 					possibleParamValues: [],
 					sparqlTriples: "",
 					additionalSparql: "",
+
+					formatInternalSparqlWhere: function() {
+						let result = "";
+						this.sparqlWhere.split(/\r?\n/).forEach(function (elem) {
+							if (/\S/.test(elem)) {
+								let row = "";
+								elem.split(/\ +/).forEach(function (elem) {
+									if (/\S/.test(elem)) {
+										if (/:/.test(elem) && !(/\^\^/.test(elem))) {
+											const split = elem.split(":");
+											row += "<http://lambda3.org/aide/"+ split[0] + "/" + split[1]  + "> ";
+										}
+										else {
+											row += elem + " ";
+										}
+									}
+								});
+								result += row + " .\n";
+							}
+						});
+						return result;
+					},
 
 					repr: function () {
 						const event = this;
@@ -101,7 +113,7 @@ angular.module('Lambda3WebApp')
 							rangeUnit: event.rangeUnit,
 							step: event.step,
 							stepUnit: event.stepUnit,
-							sparqlWhere: event.sparqlWhere
+							sparqlWhere: event.formatInternalSparqlWhere(),
 						}
 					}
 				}
@@ -116,7 +128,8 @@ angular.module('Lambda3WebApp')
 // $scope.sparqlTriples = "";
 // $scope.additionalSparql = "";
 
-			console.log($scope.event);
+			console.log("EVENT", $scope.event);
+
 
 
 			/**
@@ -124,8 +137,9 @@ angular.module('Lambda3WebApp')
 			 */
 			function setSparqlWhere() {
 				const triples = typeof($scope.event.sparqlTriples) === "undefined" ? "" : $scope.event.sparqlTriples;
-
+				console.log("TRIPLES", triples);
 				$scope.event.sparqlWhere = triples + $scope.event.additionalSparql;
+
 				$scope.updateParams();
 			}
 
@@ -153,12 +167,15 @@ angular.module('Lambda3WebApp')
 						$scope.toggleParam(index);
 					}
 				});
-				console.log("param values", $scope.event.paramValues);
+				console.log("param values", $scope.event.possibleParamValues);
 			}
 
 			$scope.getKeys = () => Object.keys($scope.event);
 
 			if (!event.empty) {
+				console.log("INITIALIZING");
+				setSparqlWhere();
+				$scope.updateParams();
 				initParams();
 			}
 

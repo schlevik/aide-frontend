@@ -10,6 +10,11 @@
 angular.module('Lambda3WebApp')
 	.factory('stepFactory', ["aide", "lodash",
 		function (aide, _) {
+			
+			function getEvent(name) {
+				return aide.getEvent({"name": name}).$promise.then((success) => success.event_listener);
+			}
+
 			/**
 			 * Representation of the WaitFor step.
 			 * @constructor
@@ -40,9 +45,6 @@ angular.module('Lambda3WebApp')
 			}
 
 
-			function getEvent(name) {
-				return aide.getEvent({"name": name}).$promise.then((success) => success.event);
-			}
 
 			/**
 			 * Prepares the args of a function for json encoding.
@@ -115,30 +117,6 @@ angular.module('Lambda3WebApp')
 					mode: mode ? mode : "mapping",
 					name: name,
 					type: type ? type : "text",
-
-					toggle: function () {
-						switch (this.mode) {
-							case "mapping":
-								this.mode = $scope.functionType === "api_funcs" ? "literal" : "function";
-								break;
-
-							case "function":
-								this.mode = "literal";
-								break;
-
-							case "literal":
-								this.mode = "mapping";
-								break;
-
-							case "off":
-								this.mode = "mapping";
-								break;
-
-							default:
-								this.mode = "off";
-						}
-
-					}
 
 
 				};

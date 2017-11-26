@@ -13,7 +13,7 @@ angular.module('Lambda3WebApp')
 			controller: 'ProgrammingSparqlCtrl',
 			restrict: 'E',
 			scope: {
-				sparqlWhere: "="// two way binding
+				event: "="// two way binding
 
 			},
 			transclude: true,

@@ -24,6 +24,7 @@ angular.module('Lambda3WebApp')
 
 		$scope.edit = function () {
 			const oldEvent = angular.copy($scope.event);
+			console.log("EVENT: ", $scope.event);
 			return $uibModal
 				.open({
 					templateUrl: "views/aide/templates/modals/createEventModal.tpl.html",

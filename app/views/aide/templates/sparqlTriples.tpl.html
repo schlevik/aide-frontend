@@ -9,8 +9,8 @@
 		</button>
 	</div>
 </div>
-{{steps}}
-<div ng-repeat="whereRow in whereRows track by $index" class="row-fluid row-no-padding">
+<div ng-repeat="whereRow in event.whereRows track by $index" class="row-fluid row-no-padding">
+	
 	<!--  <div class="col-md-4">
             <input type="text" title="Subject" placeholder="Subject" class="form-control input-lg" ng-model="whereRows[$index].subject" uib-typeahead="subj for subj in getRelatedClasses($viewValue)" data-typeahead-min-length="2" data-typeahead-wait-ms="500" data-typeahead-show-hint="true" typeahead-input-formatter="$model.instance" data-typeahead-template-url="views/aide/templates/typeahead/subject.tpl.html" />
         </div> -->
@@ -18,7 +18,7 @@
 	<div class="col-md-11" ng-show="whereRow.isPlain()">
 		<div class="input-group">
 			<input type="text" title="try me out" placeholder="plain text" class="form-control input input-lg no-animate"
-						 ng-model="whereRows[$index].selectedProposal" uib-typeahead="opt for opt in getAutoComplete($viewValue)"
+						 ng-model="event.whereRows[$index].selectedProposal" uib-typeahead="opt for opt in getAutoComplete($viewValue)"
 						 data-typeahead-min-length="2" data-typeahead-wait-ms="500" data-typeahead-input-formatter="$model.code"
 						 data-typeahead-show-hint="false"
 						 data-typeahead-template-url="views/aide/templates/typeahead/query_autocomplete.tpl.html"
