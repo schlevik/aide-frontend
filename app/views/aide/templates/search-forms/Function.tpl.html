@@ -1,0 +1,56 @@
+<div class="col-md-3">
+	<!--function search field-->
+	<input type="text" title="{{functionType}} name to execute" placeholder="{{functionType}}..."
+				 class="form-control input"
+				 ng-model="func" uib-typeahead="func for func in getTypeAhead($viewValue)"
+				 data-typeahead-min-length="2" data-typeahead-wait-ms="500" data-typeahead-show-hint="true"
+				 data-typeahead-input-formatter="$model.api ? ($model.api + '.' + $model.name) : ''"
+				 data-typeahead-template-url="views/aide/templates/typeahead/function.tpl.html"
+				 data-typeahead-on-select="createArgsFrom($item)"/>
+</div>
+<div class="col-md-9">
+	<div class="row-inline row-no-padding" ng-repeat="arg in func.args track by $index">
+		<div class="col-md-8">
+			<!--arg name-->
+			<input type="text" title="?{{arg}}" placeholder="?{{arg}}" ng-model="action.args[$index]"
+						 class="form-control" disabled/>
+			<!--input field if literal is chosen-->
+			<input ng-if="isLiteral(arg)" type="{{func.argValues[arg].type}}"
+						 title="Type in a value for argument {{arg}}" placeholder="Type in a value..."
+						 ng-model="func.argValues[arg].value" class="form-control no-animate">
+			<!--dropdown if mapping is chosen-->
+			<select
+				ng-init="func.argValues[arg].mapTo = func.argValues[arg].mapTo ? func.argValues[arg].mapTo : context.getParams()[0]"
+				ng-if="isMapping(arg)" data-ng-model="func.argValues[arg].mapTo"
+				ng-options="x for x in context.getParams()" class="form-control no-animate"
+				title="Select a parameter..." style="min-width: 196px">
+			</select>
+			<!--Api func search-->
+		</div>
+		<!--button to toggle modes-->
+		<div class="col-md-4 text-right">
+			<button class="btn btn-default input dropdown-toggle" ng-click="toggleArg(arg, 'mapping')"
+							title="Switch to choose a parameter"
+							ng-class="{'active': isMapping(arg)}">
+				<kbd>?x</kbd>
+				<span class="sr-only">mapping</span>
+			</button>
+			<button class="btn btn-default input dropdown-toggle" ng-click="toggleArg(arg, 'literal')"
+							title="Switch to type in a value"
+							ng-class="{'active': isLiteral(arg)}">
+				<kbd>".."</kbd>
+				<span class="sr-only">literal</span>
+			</button>
+			<button class="btn btn-default input dropdown-toggle" ng-click="toggleArg(arg, 'function')"
+							title="Switch to find a function"
+							ng-class="{'active': isFunction(arg)}">
+				<kbd>f(x)=</kbd>
+				<span class="sr-only">function</span>
+			</button>
+		</div>
+		<div class="col-md-11" ng-if="isFunction(arg)">
+			<function-search context="context" func="func.argValues[arg].func"
+											 function-type="'api_funcs'" type="ApiFunction"></function-search>
+		</div>
+	</div>
+</div>

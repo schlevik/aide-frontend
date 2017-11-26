@@ -1,0 +1,26 @@
+<div class="row-fluid row-no-padding">
+	<div class="col-md-2 col-xs-12" style="width:150px">
+		<select ng-init="type = type || stepTypes[0]" data-ng-model="step.type"
+						ng-options="x for x in stepTypes"
+						class="form-control input" title="Step Type">
+		</select>
+	</div>
+	<div class="col-md-10">
+		<wait-for-step ng-if="step.type === 'WaitFor'" step="step.WaitFor" context="context"></wait-for-step>
+
+		<execute-step ng-if="step.type === 'Execute'" step="step.Execute" context="context"></execute-step>
+
+		<repeat-until-step ng-if="step.type === 'RepeatUntil'" step="step.RepeatUntil" context="context"></repeat-until-step>
+
+	</div>
+</div>
+
+<!--<div class="col-md-9" ng-if="step.type=='Execute'">-->
+<!--<execution-steps type="Execute" step="step.Execute"></execution-steps>-->
+<!--</div>-->
+<!--<div class="col-md-9" ng-if="step.type=='WaitFor'">-->
+<!--<execution-steps type="WaitFor" step="step.WaitFor"></execution-steps>-->
+<!--</div>-->
+<!--<div class="col-md-9" ng-if="step.type=='RepeatUntil'">-->
+<!--<execution-steps type="RepeatUntil" step="step.RepeatUntil"></execution-steps>-->
+<!--</div>-->

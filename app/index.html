@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>AIDE</title>
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body ng-app="Lambda3WebApp">
+    <toast></toast>
+    <!-- navbar -->
+    <nav class="navbar navbar-top navbar-default floating-nav" role="navigation" ng-controller="NavigationCtrl">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="collapse navbar-collapse" uib-collapse="navCollapsed">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" ng-class="{active: isCurrentParent('/aide')}">
+                        <a class="dropdown-toggle nav-root" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        AIDE <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li ng-class="{ active: isCurrentPage('/aide/ruleEditor')}">
+                                <a href="#!/aide/ruleEditor">
+                                    <i class="fa fw fa-list" aria-hidden="true"></i> Rule Editor
+                                </a>
+                            </li>
+                            <li ng-class="{ active: isCurrentPage('/aide/functionEditor')}">
+                                <a href="#!/aide/functionEditor">
+                                    <i class="fa fw fa-terminal" aria-hidden="true"></i> Function Editor
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- body -->
+    <section class="container space-for-nav">
+        <div ng-view></div>
+    </section>
+
+    <!-- ace -->
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+    <!-- ace -->
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-elastic/elastic.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <script src="bower_components/ngToast/dist/ngToast.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
+    <script src="bower_components/file-wrapper/index.js"></script>
+    <script src="bower_components/line-navigator/index.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/navigation.js"></script>
+    <script src="scripts/directives/autofocus.js"></script>
+    <script src="scripts/services/lodash.js"></script>
+
+    <script src="scripts/services/speechrecognitionapi.js"></script>
+    <script src="scripts/services/linenavigator.js"></script>
+    <script src="scripts/controllers/aide/ruleEditor.js"></script>
+    <script src="scripts/controllers/aide/functionEditor.js"></script>
+    <script src="scripts/services/aide/aide_config.js"></script>
+    <script src="scripts/services/aide/aide.js"></script>
+    <script src="scripts/directives/aide/aide_response.js"></script>
+    <script src="scripts/directives/aide/no_whitespaces.js"></script>
+    <script src="scripts/controllers/aide/semanticSearchModal.js"></script>
+    <script src="scripts/services/aide/semanticsearch.js"></script>
+    <script src="scripts/services/aide/stepfactory.js"></script>
+    <script src="scripts/directives/aide/execution_steps.js"></script>
+    <script src="scripts/controllers/aide/createEventModal.js"></script>
+    <script src="scripts/directives/aide/sparql_triples.js"></script>
+    <script src="scripts/controllers/aide/sparql.js"></script>
+    <script src="scripts/directives/aide/event_representation.js"></script>
+    <script src="scripts/controllers/aide/event_representation.js"></script>
+    <script src="scripts/controllers/aide/steps.js"></script>
+    <script src="scripts/directives/aide/step.js"></script>
+    <script src="scripts/controllers/aide/step.js"></script>
+    <script src="scripts/controllers/aide/waitforstep.js"></script>
+    <script src="scripts/directives/aide/waitforstep.js"></script>
+    <script src="scripts/directives/aide/event_search.js"></script>
+    <script src="scripts/controllers/aide/eventsearch.js"></script>
+    <script src="scripts/controllers/aide/function_search.js"></script>
+    <script src="scripts/directives/aide/function_search.js"></script>
+    <script src="scripts/services/aide/SemanticRelatedness.js"></script>
+    <script src="scripts/directives/aide/execute_step.js"></script>
+    <script src="scripts/controllers/aide/executestep.js"></script>
+    <script src="scripts/directives/aide/repeatuntilstep.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "../bower_components/font-awesome/fonts";
+// custom colors
+$brand-primary: #5595ab;
+$brand-danger: #b04646;
+$brand-warning: hsla(47, 85%, 45%, 1);
+$brand-info: #68cce3;
+$brand-success: hsla(120, 65%, 35%, 1);
+$navbar-default-color: #bbdefb;
+$navbar-default-bg: $brand-primary;
+$navbar-default-link-color: #f5f5f5;
+$navbar-default-link-active-bg: #31708f;
+$navbar-default-link-active-color: #f5f5f5;
+$navbar-default-link-hover-bg: $navbar-default-link-active-bg;
+$navbar-default-link-hover-color: $navbar-default-link-active-color;
+$body-bg: #f5f5f5;
+$text-color: #212121;
+$page-header-border-color: #7f8c8d;
+$headings-color: $brand-primary;
+// fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro:600&subset=latin-ext');
+$font-family-base: "Source Sans Pro",
+sans-serif;
+$font-family-serif: "Source Serif Pro",
+serif;
+$font-family-sans-serif: "Source Sans Pro",
+sans-serif;
+$font-family-monospace: 'Source Code Pro',
+monospace;
+$headings-font-family: "Source Serif Pro",
+sans-serif;
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "font-awesome/scss/font-awesome.scss";
+// endbower
+// from bootstrap 4 (responsive images inside containers)
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.breakword {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+
+
+
+
+
+/* Sticky footer */
+
+html {
+  position: relative;
+  min-height: 90%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  height: auto !important;
+  padding-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.nav-root {
+  font-variant: small-caps;
+}
+
+
+
+
+
+
+/* -------------------------------------------------- */
+
+
+/* Change font to monospace */
+
+.monospaced {
+  font-family: $font-family-monospace;
+}
+
+
+
+
+
+
+/* add margin bottom to each row */
+
+.row {
+  //noinspection SassScssResolvedByNameOnly
+  margin-bottom: $line-height-computed;
+}
+
+
+
+
+
+
+/* image in navbar */
+
+.navbar-brand {
+  padding: 0;
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
+
+
+
+
+
+
+/* file upload */
+
+.drop-box {
+  background: #F8F8F8;
+  border: 5px dashed #DDD;
+  width: auto;
+  height: 8em;
+  text-align: center;
+  padding-top: 25px;
+  margin: 10px;
+}
+
+.dragover {
+  border: 5px dashed $brand-primary;
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.floating-nav {
+  position: fixed;
+  z-index: 10000;
+  width: 100%;
+}
+
+.space-for-nav {
+  padding-top: 50px;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.no-animate {
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+
+.typeahead-group-header {
+  padding: 3px 20px;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+}
+
+.typeahead-group-footer {
+  padding: 3px 20px;
+  border-top: 1px solid black;
+  font-weight: bold;
+}

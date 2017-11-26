@@ -1,0 +1,164 @@
+<section layout="column" flex>
+	<md-sidenav class="md-sidenav-left space-for-nav" md-component-id="left" md-whiteframe="4" md-disable-backdrop="true">
+		<md-content flex layout-fill>
+			<div class="page-header">
+				<h1>API List</h1>
+			</div>
+			<uib-accordion close-others="oneAtATime">
+				<div uib-accordion-group class="panel-default" data-is-open="true">
+					<uib-accordion-heading>
+						<label>APIs</label>
+					</uib-accordion-heading>
+					<!-- <div class="container-fluid"> -->
+					<div class="row row-no-padding">
+						<div class="col-md-10">
+							<input md-autofocus class="form-control input input-sm" id="apiName" name="apiName"
+										 placeholder="Search..." type="text" ng-model="search" no-spaces/>
+						</div>
+						<div class="col-md-2 text-right">
+							<div ng-show="selectedApi">
+								<button ng-click="getApi(selectedApi)" class="btn btn-primary btn-sm">
+									<i class="fa fa-file"></i>
+								</button>
+							</div>
+							<div ng-show="!selectedApi">
+								<button ng-click="reset();" class="btn btn-primary btn-sm">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row row-no-padding">
+						<div class="col-md-12">
+							<select autofocus class="form-control" data-ng-model="selectedApi" name="selectedApi" title="selected Api"
+											ng-options="api for api in apiList| filter:search" size="5">
+								<option value="" selected="selected">New Api...</option>
+							</select>
+						</div>
+					</div>
+					<!-- </div> -->
+				</div>
+				<div uib-accordion-group class="panel-default" data-is-open="true">
+					<uib-accordion-heading>
+						<span class="button">Action providers</span>
+					</uib-accordion-heading>
+					<!-- <div class="container-fluid"> -->
+					<div class="row row-no-padding">
+						<div class="col-md-10">
+							<input md-autofocus class="form-control input input-sm" id="apName" name="apName" placeholder="Search..."
+										 type="text" ng-model="searchAP" no-spaces/>
+						</div>
+						<div class="col-md-2 text-right">
+							<div ng-show="selectedAp">
+								<button ng-click="getActionProvider(selectedAp)" class="btn btn-primary btn-sm">
+									<i class="fa fa-file"></i>
+								</button>
+							</div>
+							<div ng-show="!selectedAp">
+								<button ng-click="reset();" class="btn btn-primary btn-sm">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row row-no-padding">
+						<div class="col-md-12">
+							<select autofocus class="form-control" data-ng-model="selectedAp" name="selectedAp" title="selected Ap"
+											ng-options="ap for ap in action_providerList| filter:search" size="5">
+								<option value="" selected="selected">New Action Provider...</option>
+							</select>
+						</div>
+					</div>
+					<!-- </div> -->
+				</div>
+				<div uib-accordion-group class="panel-default" data-is-open="true">
+					<uib-accordion-heading>
+						<span class="button">Extractors</span>
+					</uib-accordion-heading>
+					<!-- <div class="container-fluid"> -->
+					<div class="row row-no-padding">
+						<div class="col-md-10">
+							<input md-autofocus class="form-control input input-sm" id="exName" name="exName" placeholder="Search..."
+										 type="text" ng-model="searchEX" no-spaces/>
+						</div>
+						<div class="col-md-2 text-right">
+							<div ng-show="selectedEx">
+								<button ng-click="getExtractor(selectedEx)" class="btn btn-primary btn-sm">
+									<i class="fa fa-file"></i>
+								</button>
+							</div>
+							<div ng-show="!selectedEx">
+								<button ng-click="reset();" class="btn btn-primary btn-sm">
+									<i class="fa fa-plus"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row row-no-padding">
+						<div class="col-md-12">
+							<select autofocus class="form-control" data-ng-model="selectedEx" name="selectedEx" title="selected Ap"
+											ng-options="ex for ex in extractorList | filter:search" size="5">
+								<option value="" selected="selected">New Extractor...</option>
+							</select>
+						</div>
+					</div>
+					<!-- </div> -->
+				</div>
+			</uib-accordion>
+		</md-content>
+	</md-sidenav>
+</section>
+<div class="page-header">
+	<h1><i class="fa fa-terminal" aria-hidden="true"></i> API Editor</h1>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<input style="font-family:monospace;" id="name" name="name" placeholder="Api name" type="text"
+					 class="form-control input-sm" ng-model="name" ng-required="required" ng-disabled="loading"
+					 ng-pattern="[a-zA-Z0-9]*$" no-spaces/>
+	</div>
+	<div class="col-md-6 text-right">
+		<select data-ng-model="currentType" ng-options="x for x in types" class="form-control input input-sm"
+						style="width:160px">
+		</select>
+	</div>
+</div>
+<div ui-ace="{theme:'chrome', mode:'python', useWrapMode:false, showTrue:false, onLoad: aceLoaded, require: ['ace/ext/language_tools'], advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: false
+  }}" style="height:480px; fontSize='20px'" data-ng-model="api" data-ng-disabled="loading" autofocus></div>
+<pre>
+{{warnings}}
+</pre>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<div ng-show="loading" class="col-md-12">
+			<p class="alert alert-info"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> Loading…
+			</p>
+		</div>
+		<div ng-show="error" class="col-md-12">
+			<p class="alert alert-danger">
+				<i class="fa fa-chain-broken" aria-hidden="true"></i> {{error}}
+			</p>
+		</div>
+		<div ng-show="message">
+			<mario-response type="Rule" output="message"></mario-response>
+		</div>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-7">
+		<button ng-click="toggleLeft()" class="btn btn-lg">
+			<i class="fa fa-list"></i> Api List
+		</button>
+	</div>
+	<div class="col-md-5 text-right">
+		<button ng-click="delete()" class="btn btn-lg btn-danger">
+			<i class="fa fa-remove"></i> Delete
+		</button>
+		<button ng-click="saveApi()" class="btn btn-lg">
+			<i class="fa fa-list"></i> Save
+		</button>
+	</div>
+</div>

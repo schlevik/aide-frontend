@@ -1,0 +1,80 @@
+<div class="modal-header">
+	<h3 class="modal-title">Create new Event</h3>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<input autofocus id="name" name="name" placeholder="Event name..." type="text" class="form-control input-lg"
+					 ng-model="event.name" ng-required="required" no-spaces/>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<input id="desc" name="desc" placeholder="Event description..." type="text" class="form-control input-lg"
+					 ng-model="event.$$desc" ng-required="required"/>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-3" style="margin-top:9px">
+		<span class="lead">Parameters:</span>
+	</div>
+	<div class="col-md-9 btn-group">
+		<button ng-repeat="param in event.possibleParams track by $index" class="btn btn-default btn-lg" aria-pressed="false"
+						ng-class="{'active':event.possibleParamValues[$index]==true}"
+						ng-click="toggleParam($index)" data-toggle="button">{{param}}
+		</button>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12 col-xs-12">
+		<form class="form-inline">
+			<div class="input-group">
+				<span class="input-group-addon input-lg">Within</span>
+				<input type="number" title="Range" placeholder="Range" min="0" ng-model="event.range" style="width:100px"
+							 class="form-control input input-lg"/>
+				<span class="input-group-btn"><select ng-model="event.rangeUnit"
+																							ng-init="event.$$rangeUnit = event.$$rangeUnit || timeUnits[0]"
+																							ng-options="x for x in timeUnits"
+																							class="btn btn-lg btn-default input input-lg dropdown-toggle"></select></span>
+			</div>
+			<div class="input-group">
+				<span class="input-group-addon input-lg">Check every</span>
+				<input type="number" title="Step" placeholder="Step" min="0" ng-model="event.step" style="width:100px"
+							 class="form-control input input-lg"/>
+				<span class="input-group-btn"><select ng-model="event.stepUnit"
+																							ng-init="event.$$stepUnit = event.$$stepUnit || timeUnits[0]"
+																							ng-options="x for x in timeUnits"
+																							class="btn btn-lg btn-default input input-lg dropdown-toggle"></select></span>
+			</div>
+		</form>
+	</div>
+</div>
+<sparql-triples event="event"></sparql-triples>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+
+<textarea textarea-submit id="additionalSparql" name="additionalSparql" placeholder="additional Sparql..." class="form-control input-lg"
+					rows="4" data-ng-model="event.additionalSparql" ng-required="required">
+</textarea>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+
+
+		<pre>
+{{event.sparqlWhere}}
+		</pre>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="row-fluid row-no-padding">
+		<div class="col-md-12">
+			<button class="btn btn-lg btn-primary" ng-click="ok()">OK</button>
+			<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>

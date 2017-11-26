@@ -1,0 +1,21 @@
+<input type="text" title="Event to wait for" placeholder="Choose an existing event..."
+			 class="form-control input no-animate" ng-model="event"
+			 uib-typeahead="event for event in getTypeAhead($viewValue)" data-typeahead-min-length="2"
+			 data-typeahead-wait-ms="50" data-typeahead-show-hint="true" data-typeahead-input-formatter="$model.name"
+			 data-typeahead-template-url="views/aide/templates/typeahead/event.tpl.html"
+			 data-typeahead-on-select="onSelected($item, $model, $label)" ng-show="!selected"/>
+
+<div class="input-group" ng-if="selected">
+	<input type="text" title="Object" placeholder="object"
+				 class="form-control input no-animate" ng-model="event.name" disabled/>
+	<span class=" input-group-btn ">
+		<button class="btn btn-danger input" ng-click="delete()">
+					<i class="fa fa-remove" aria-hidden="true"></i>
+					<span class="sr-only">delete</span>
+		</button>
+	</span>
+</div>
+<!--<button type="button" class="btn  btn-success" ng-click="newEvent()">-->
+<!--<i class="fa fa-plus" aria-hidden="true"></i>-->
+<!--<span class="sr-only">Add</span>-->
+<!--</button>-->
