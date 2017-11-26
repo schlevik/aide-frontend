@@ -1,0 +1,67 @@
+<div class="row-fluid row-no-padding">
+	<div class="col-md-11" style="margin-top:9px">
+		<span class="lead">WHERE</span>
+	</div>
+	<div class="col-md-1 text-right">
+		<button type="button" class="btn btn-lg btn-success" ng-click="addWhereRow()">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			<span class="sr-only">Add</span>
+		</button>
+	</div>
+</div>
+{{steps}}
+<div ng-repeat="whereRow in whereRows track by $index" class="row-fluid row-no-padding">
+	<!--  <div class="col-md-4">
+            <input type="text" title="Subject" placeholder="Subject" class="form-control input-lg" ng-model="whereRows[$index].subject" uib-typeahead="subj for subj in getRelatedClasses($viewValue)" data-typeahead-min-length="2" data-typeahead-wait-ms="500" data-typeahead-show-hint="true" typeahead-input-formatter="$model.instance" data-typeahead-template-url="views/aide/templates/typeahead/subject.tpl.html" />
+        </div> -->
+	<!-- if: is plain -->
+	<div class="col-md-11" ng-show="whereRow.isPlain()">
+		<div class="input-group">
+			<input type="text" title="try me out" placeholder="plain text" class="form-control input input-lg no-animate"
+						 ng-model="whereRows[$index].selectedProposal" uib-typeahead="opt for opt in getAutoComplete($viewValue)"
+						 data-typeahead-min-length="2" data-typeahead-wait-ms="500" data-typeahead-input-formatter="$model.code"
+						 data-typeahead-show-hint="false"
+						 data-typeahead-template-url="views/aide/templates/typeahead/query_autocomplete.tpl.html"
+						 data-typeahead-on-select="onSelectPlain($index)"/>
+			<span class="input-group-btn"><button class="btn btn-lg btn-default input input-lg " ng-click="whereRow.toggle()">
+			<i class="fa fa-retweet" aria-hidden="true"></i>
+				<kbd>
+						?s ?p ?o
+					</kbd><span class="sr-only">triples</span></button>
+			</span>
+		</div>
+	</div>
+	<!-- if: is is triples -->
+	<div ng-show="whereRow.isTriples()">
+		<div class="col-md-3">
+			<input type="text" title="Subject" placeholder="Subject" class="form-control input input-lg no-animate"
+						 ng-model="whereRow.subject" ng-change="updateSparqlWhere()"/>
+		</div>
+		<div class="col-md-3">
+			<input type="text" ng-show="whereRow.isTriples()" title="Predicate" placeholder="Predicate"
+						 class="form-control input input-lg no-animate" ng-model="whereRow.predicate"
+						 ng-change="updateSparqlWhere()"/>
+		</div>
+		<div class="col-md-5">
+			<div class="input-group">
+				<input type="text" ng-show="whereRow.isTriples()" title="Object" placeholder="object"
+							 class="form-control input input-lg no-animate" ng-model="whereRow.object"
+							 ng-change="updateSparqlWhere()"/>
+				<span class=" input-group-btn "><button class="btn btn-lg btn-default input input-lg "
+																								ng-click="whereRow.toggle() ">
+					<i class="fa fa-retweet" aria-hidden="true"></i>
+					<kbd>
+						"......"
+					</kbd>
+					<span class="sr-only ">plain text</span></button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-1 text-right ">
+		<button type="button" class="btn btn-lg btn-danger " ng-click="removeWhereRow($index) ">
+			<i class="fa fa-minus " aria-hidden="true"></i>
+			<span class="sr-only ">Remove</span>
+		</button>
+	</div>
+</div>

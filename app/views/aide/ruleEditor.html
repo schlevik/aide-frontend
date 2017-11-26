@@ -1,0 +1,142 @@
+<!--toggleable menu to load existing rules-->
+<section layout="column" flex>
+	<md-sidenav class="md-sidenav-left space-for-nav" md-component-id="left" md-whiteframe="4">
+		<md-content flex layout-fill>
+			<div class="page-header">
+				<h1>Rule List</h1>
+			</div>
+			<div class="container-fluid">
+				<div class="row row-no-padding">
+					<div class="col-md-10">
+						<input md-autofocus class="form-control input input-sm" id="ruleName" name="ruleName"
+									 placeholder="Search..." type="text" ng-model="search" no-spaces/>
+					</div>
+					<div class="col-md-2 text-right">
+						<div ng-show="selectedRule">
+							<button ng-click="reset(); getRule(selectedRule.name);" class="btn btn-primary btn-sm">
+								<i class="fa fa-file"></i>
+							</button>
+						</div>
+						<div ng-show="!selectedRule">
+							<button ng-click="reset(); toggleLeft();" class="btn btn-primary btn-sm">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row row-no-padding">
+					<div class="col-md-12">
+						<select autofocus class="form-control" data-ng-model="selectedRule" name="selectedRule"
+										title="selected Rule"
+										ng-options="rule.name for rule in ruleList| filter:search" size="5">
+							<option value="" selected="selected">New Rule...</option>
+						</select>
+					</div>
+				</div>
+				<div class="row row-no-padding">
+					<div class="col-md-12">
+						<div class="well">
+							{{selectedRule.description}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</md-content>
+	</md-sidenav>
+</section>
+<!--header -->
+<div class="page-header">
+	<h1><i class="fa fa-list" aria-hidden="true"></i> Rule Editor</h1>
+</div>
+<!--form with description and buttons-->
+<form name="ruleForm" ng-submit="saveRule()">
+	<div class="row-fluid row-no-padding">
+		<div class="col-md-4">
+			<input autofocus id="name" name="name" placeholder="Rule name" type="text" class="form-control input-lg"
+						 ng-model="name" ng-required="required" ng-disabled="loading" no-spaces/>
+		</div>
+		<div class="col-md-8 text-right">
+			<button type="button" class="btn btn-danger btn-lg" ng-click="delete()" ng-disabled="loading">
+				<i class="fa fa-remove"></i> Delete
+			</button>
+			<button type="submit" class="btn btn-primary btn-lg" ng-disabled="loading">
+				<i class="fa fa-save"></i> Save Rule
+			</button>
+			<button type="button" class="btn btn-lg" ng-click="reset()" ng-disabled="loading">
+				<i class="fa fa-close"></i> Reset
+			</button>
+		</div>
+	</div>
+	<div class="row-fluid row-no-padding">
+		<div class="col-md-12">
+			<input id="ruleDesc" name="ruleDesc" placeholder="Rule description" type="text" class="form-control input-lg"
+						 ng-model="description" ng-required="required" ng-disabled="loading"/>
+		</div>
+	</div>
+</form>
+<!--execution steps-->
+<execution-steps steps="steps" triggering-step="triggeringStep" context="context"></execution-steps>
+<!--uh not sure what that is-->
+<div class="row-fluid row-no-padding" ng-show="rule.content">
+	<div class="col-md-12">
+		<pre>{{routine}}</pre>
+	</div>
+</div>
+<!--result message-->
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<div ng-show="loading" class="col-md-12">
+			<p class="alert alert-info"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> Loading…
+			</p>
+		</div>
+		<div ng-show="error" class="col-md-12">
+			<p class="alert alert-danger">
+				<i class="fa fa-chain-broken" aria-hidden="true"></i> {{error}}
+			</p>
+		</div>
+		<div ng-show="message">
+			<mario-response type="Rule" output="message"></mario-response>
+
+		</div>
+	</div>
+</div>
+<!--show existing events-->
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<pre>
+{{buildRule() | json}}
+		</pre>
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<div class="row-fluid row-no-padding h2">
+			New Events
+		</div>
+		<!--Event representations-->
+		<p ng-repeat="event in context.getNewEvents() track by $index">
+			<event-representation ng-if="isDefined(event)" event="event" editable="true"></event-representation>
+		</p>
+
+	</div>
+</div>
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<div class="row-fluid row-no-padding h2">
+			Already Defined Events
+		</div>
+		<!--Event representations-->
+		<p ng-repeat="event in context.getExistingEvents() track by $index">
+			<event-representation ng-if="isDefined(event)" event="event" editable="false"></event-representation>
+		</p>
+
+	</div>
+</div>
+<!--Rule list toggler-->
+<div class="row-fluid row-no-padding">
+	<div class="col-md-12">
+		<button ng-click="toggleLeft()" class="btn btn-lg">
+			<i class="fa fa-list"></i> Rule List
+		</button>
+	</div>
+</div>

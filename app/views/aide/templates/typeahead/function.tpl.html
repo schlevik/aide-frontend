@@ -1,0 +1,14 @@
+<a style="border-bottom: 1px solid lightslategray;">
+	<samp>Name: {{match.model.name}}</samp><br>
+	<samp>API: {{match.model.api}}</samp><br>
+	<samp>Arguments:<i ng-repeat="arg in match.model.args">{{arg}} </i></samp>
+	<div ng-if="!$parent.$parent.$parent.equals(match.model.hinted_args, {})">
+		<samp>Signature:<i ng-repeat="arg in match.model.args">
+			{{match.model.hinted_args[arg]}} </i> <samp>-></samp> <i>{{match.model.hinted_args.return}}</i>
+		</samp>
+	</div>
+	<div ng-if="match.model.doc">
+		<samp>Documentation:</samp><br>
+		<pre>{{match.model.doc}}</pre>
+	</div>
+</a>

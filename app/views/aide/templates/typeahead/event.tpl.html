@@ -1,0 +1,11 @@
+<div class="typeahead-group-header" ng-if="match.model.firstInGroup">{{match.model.source}}</div>
+<a ng-if="!match.model.last">
+	<samp>{{match.model.name}}</samp>
+	<br>
+	<i>Parameters: {{match.model.paramList}}</i>
+</a>
+<div ng-if="match.model.last" class="typeahead-group-footer text-right">
+	<button title="..or create a new one" class="btn btn-lg btn-success">
+		<i class="fa fa-plus" aria-hidden="true"></i>
+	</button>
+</div>

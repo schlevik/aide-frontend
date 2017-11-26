@@ -1,0 +1,16 @@
+<div class="modal-header">
+	<h3 class="modal-title">Find your function...</h3>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 text-center">
+		<input type="text" title="Function Name" placeholder="search..." class="form-control input-lg" ng-model="func"
+					 uib-typeahead="func for func in getFunctions($viewValue)" data-typeahead-min-length="2"
+					 data-typeahead-wait-ms="500" data-typeahead-show-hint="true"
+					 data-typeahead-input-formatter="$model.api ? ($model.api + '.' + $model.name) : ''"
+					 data-typeahead-template-url="views/aide/templates/typeahead/function.tpl.html"/>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">OK</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,9 @@
+# ignore git and other hidden directories
+.*/
+
+# ignore node_modules and bower dependencies
+node_modules
+bower_components
+
+# ignore already built folder
+dist

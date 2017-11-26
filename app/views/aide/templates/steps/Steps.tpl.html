@@ -1,0 +1,28 @@
+<!--triggering step-->
+<form class="row-fluid row-no-padding form-inline">
+	<div class="col-md-2" style="margin-top:2px; margin-left: 10px; width:140px">
+		<span class="lead"><samp>WHEN</samp></span>
+	</div>
+	<div class="col-md-10">
+		<wait-for-step step="triggeringStep" context="context"></wait-for-step>
+	</div>
+</form>
+<!--steps-->
+<form ng-repeat="step in steps track by $index" class="row-fluid row-no-padding form-inline">
+
+	<!--single step-->
+	<div class="col-md-11 col-xs-12">
+		<step></step>
+	</div>
+	<!--add/remove step buttons-->
+	<div class="col-md-1 text-right">
+		<button type="button" class="btn  btn-danger" ng-click="removeStep($index)" ng-if="$index !== 0">
+			<i class="fa fa-minus" aria-hidden="true"></i>
+			<span class="sr-only">Remove</span>
+		</button>
+		<button type="button" class="btn  btn-success" ng-click="addStep($index)" ng-if="$index == 0">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			<span class="sr-only">Add</span>
+		</button>
+	</div>
+</form>
